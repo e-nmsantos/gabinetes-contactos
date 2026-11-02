@@ -1,0 +1,1157 @@
+﻿<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diretório Institucional — Gabinetes MF</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* macOS Light Mode Palette */
+      --mac-bg: #f5f5f7;
+      --mac-window-bg: rgba(255, 255, 255, 0.85);
+      --mac-sidebar-bg: rgba(240, 240, 245, 0.75);
+      --mac-card-bg: #ffffff;
+      --mac-card-border: rgba(0, 0, 0, 0.07);
+      --mac-card-shadow: 0 4px 16px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.03);
+      --mac-card-hover-shadow: 0 12px 28px rgba(0, 0, 0, 0.09), 0 2px 6px rgba(0, 0, 0, 0.04);
+      --mac-text: #1d1d1f;
+      --mac-text-secondary: #86868b;
+      --mac-border: rgba(0, 0, 0, 0.08);
+      --mac-accent: #0071e3;
+      --mac-accent-hover: #0077ed;
+      --mac-pill-bg: #e8e8ed;
+      --mac-pill-text: #1d1d1f;
+      
+      --badge-seao-bg: rgba(0, 113, 227, 0.1);
+      --badge-seao-color: #0071e3;
+      --badge-seaf-bg: rgba(52, 199, 89, 0.12);
+      --badge-seaf-color: #248a3d;
+      --badge-seap-bg: rgba(175, 82, 222, 0.12);
+      --badge-seap-color: #8944ab;
+
+      --teams: #505ac9;
+      --teams-hover: #434cb2;
+    }
+
+    [data-theme="dark"] {
+      /* macOS Dark Mode / Sonoma Palette */
+      --mac-bg: #161618;
+      --mac-window-bg: rgba(30, 30, 34, 0.85);
+      --mac-sidebar-bg: rgba(24, 24, 28, 0.75);
+      --mac-card-bg: #222226;
+      --mac-card-border: rgba(255, 255, 255, 0.08);
+      --mac-card-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+      --mac-card-hover-shadow: 0 14px 34px rgba(0, 0, 0, 0.55);
+      --mac-text: #f5f5f7;
+      --mac-text-secondary: #a1a1a6;
+      --mac-border: rgba(255, 255, 255, 0.1);
+      --mac-accent: #2997ff;
+      --mac-accent-hover: #47a6ff;
+      --mac-pill-bg: #323236;
+      --mac-pill-text: #f5f5f7;
+
+      --badge-seao-bg: rgba(41, 151, 255, 0.2);
+      --badge-seao-color: #64b5f6;
+      --badge-seaf-bg: rgba(48, 209, 88, 0.2);
+      --badge-seaf-color: #81c784;
+      --badge-seap-bg: rgba(191, 90, 242, 0.22);
+      --badge-seap-color: #ce93d8;
+
+      --teams: #6366f1;
+      --teams-hover: #4f46e5;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Icons", "Helvetica Neue", "Inter", sans-serif; -webkit-font-smoothing: antialiased; }
+    body {
+      background: var(--mac-bg);
+      color: var(--mac-text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      transition: background-color 0.25s, color 0.25s;
+    }
+
+    /* macOS Unified Window Header (Toolbar + Traffic Lights) */
+    .mac-window-header {
+      background: var(--mac-window-bg);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border-bottom: 1px solid var(--mac-border);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .mac-left-section {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    /* macOS Traffic Light Buttons */
+    .mac-traffic-lights {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .traffic-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+      cursor: pointer;
+      transition: opacity 0.15s, transform 0.15s;
+      position: relative;
+    }
+    .traffic-dot:hover { transform: scale(1.08); }
+    .dot-close { background: #ff5f56; border: 1px solid #e0443e; }
+    .dot-minimize { background: #ffbd2e; border: 1px solid #dea123; }
+    .dot-expand { background: #27c93f; border: 1px solid #1aab29; }
+
+    .mac-title-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .mac-republica-emblem {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #0b2545, #0071e3);
+      padding: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    }
+    .mac-republica-emblem svg { width: 24px; height: 24px; }
+
+    .mac-title-text h1 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      color: var(--mac-text);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .mac-title-text p {
+      font-size: 0.72rem;
+      color: var(--mac-text-secondary);
+      font-weight: 500;
+    }
+
+    /* macOS Segmented Switch (Tabs) */
+    .mac-segmented-control {
+      background: var(--mac-pill-bg);
+      padding: 3px;
+      border-radius: 9px;
+      display: inline-flex;
+      border: 1px solid var(--mac-border);
+    }
+    .mac-segment-btn {
+      background: none;
+      border: none;
+      padding: 6px 15px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--mac-text-secondary);
+      cursor: pointer;
+      border-radius: 7px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .mac-segment-btn.active {
+      background: var(--mac-card-bg);
+      color: var(--mac-text);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08), 0 1px 1px rgba(0,0,0,0.04);
+    }
+
+    .mac-right-section {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .mac-pill-badge {
+      background: var(--mac-pill-bg);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: var(--mac-text-secondary);
+      border: 1px solid var(--mac-border);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .mac-pill-badge strong { color: var(--mac-accent); }
+
+    .mac-btn-icon {
+      background: var(--mac-card-bg);
+      border: 1px solid var(--mac-border);
+      color: var(--mac-text);
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+      transition: all 0.15s;
+    }
+    .mac-btn-icon:hover {
+      background: var(--mac-pill-bg);
+      border-color: var(--mac-border);
+    }
+
+    /* Sub-header / Filter Toolbar */
+    .container {
+      max-width: 1360px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 20px 24px;
+      flex: 1;
+    }
+
+    /* macOS Frosted Filter Bar */
+    .mac-toolbar {
+      background: var(--mac-card-bg);
+      border: 1px solid var(--mac-card-border);
+      border-radius: 14px;
+      padding: 12px 18px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 22px;
+      box-shadow: var(--mac-card-shadow);
+    }
+
+    /* macOS Native Search Box */
+    .mac-search-wrapper {
+      position: relative;
+      flex: 1;
+      min-width: 270px;
+    }
+    .mac-search-wrapper input {
+      width: 100%;
+      background: var(--mac-bg);
+      border: 1px solid var(--mac-border);
+      border-radius: 10px;
+      padding: 8px 12px 8px 34px;
+      font-size: 0.86rem;
+      color: var(--mac-text);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .mac-search-wrapper input:focus {
+      border-color: var(--mac-accent);
+      box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.15);
+      background: var(--mac-card-bg);
+    }
+    .mac-search-icon {
+      position: absolute;
+      left: 11px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--mac-text-secondary);
+      font-size: 0.85rem;
+      pointer-events: none;
+    }
+
+    /* macOS Segmented Filter Buttons */
+    .mac-filter-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--mac-text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-right: 2px;
+    }
+    .mac-segmented-group {
+      display: inline-flex;
+      background: var(--mac-bg);
+      padding: 3px;
+      border-radius: 9px;
+      border: 1px solid var(--mac-border);
+    }
+    .mac-filter-item {
+      background: none;
+      border: none;
+      padding: 5px 12px;
+      border-radius: 7px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--mac-text-secondary);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .mac-filter-item:hover { color: var(--mac-text); }
+    .mac-filter-item.active {
+      background: var(--mac-card-bg);
+      color: var(--mac-text);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+
+    /* Quick Action Tools */
+    .mac-actions-group {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-left: auto;
+    }
+    .mac-tool-btn {
+      background: var(--mac-bg);
+      border: 1px solid var(--mac-border);
+      color: var(--mac-text);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+    .mac-tool-btn:hover {
+      background: var(--mac-pill-bg);
+      border-color: var(--mac-card-border);
+    }
+
+    /* macOS Cards Grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 18px;
+    }
+
+    /* macOS Style Card */
+    .mac-card {
+      background: var(--mac-card-bg);
+      border: 1px solid var(--mac-card-border);
+      border-radius: 16px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--mac-card-shadow);
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s;
+      position: relative;
+    }
+    .mac-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--mac-card-hover-shadow);
+      border-color: rgba(0, 113, 227, 0.25);
+    }
+
+    .mac-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+    .mac-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 9px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .badge-seao { background: var(--badge-seao-bg); color: var(--badge-seao-color); }
+    .badge-seaf { background: var(--badge-seaf-bg); color: var(--badge-seaf-color); }
+    .badge-seap { background: var(--badge-seap-bg); color: var(--badge-seap-color); }
+
+    .mac-room-chip {
+      background: var(--mac-bg);
+      border: 1px solid var(--mac-border);
+      color: var(--mac-text-secondary);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 20px;
+    }
+
+    /* Profile Group with Apple-style Squircle Avatar */
+    .mac-profile-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .mac-squircle-avatar {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: white;
+      flex-shrink: 0;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+    }
+    .avatar-seao { background: linear-gradient(145deg, #0071e3, #004fb0); }
+    .avatar-seaf { background: linear-gradient(145deg, #34c759, #248a3d); }
+    .avatar-seap { background: linear-gradient(145deg, #af52de, #7d37a3); }
+
+    .mac-person-details { flex: 1; min-width: 0; }
+    .mac-person-name {
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: var(--mac-text);
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .mac-person-role {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--mac-text-secondary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 1px;
+    }
+
+    /* Contact Details Rows */
+    .mac-contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      font-size: 0.83rem;
+    }
+    .mac-contact-entry {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--mac-text);
+    }
+    .mac-field-tag {
+      color: var(--mac-text-secondary);
+      font-size: 0.7rem;
+      width: 54px;
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+    .mac-contact-entry a {
+      color: var(--mac-accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .mac-contact-entry a:hover { text-decoration: underline; }
+
+    .mac-voip-pill {
+      background: rgba(0, 113, 227, 0.08);
+      color: var(--mac-accent);
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+    }
+
+    /* Clipboard Copy Action */
+    .mac-copy-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--mac-text-secondary);
+      font-size: 0.78rem;
+      padding: 2px 5px;
+      border-radius: 5px;
+      opacity: 0.5;
+      transition: opacity 0.15s, color 0.15s, background-color 0.15s;
+    }
+    .mac-copy-btn:hover {
+      opacity: 1;
+      color: var(--mac-accent);
+      background: var(--mac-bg);
+    }
+
+    /* Apple-like Quick Action Buttons */
+    .mac-card-footer {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid var(--mac-border);
+      display: flex;
+      gap: 6px;
+    }
+    .mac-btn-action {
+      flex: 1;
+      text-align: center;
+      padding: 7px 10px;
+      border-radius: 9px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-decoration: none;
+      background: var(--mac-bg);
+      border: 1px solid var(--mac-border);
+      color: var(--mac-text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      transition: all 0.15s;
+    }
+    .mac-btn-action:hover {
+      background: var(--mac-pill-bg);
+      border-color: var(--mac-card-border);
+    }
+    .mac-btn-action.primary {
+      background: var(--mac-accent);
+      color: white;
+      border-color: var(--mac-accent);
+    }
+    .mac-btn-action.primary:hover {
+      background: var(--mac-accent-hover);
+    }
+    .mac-btn-action.teams {
+      background: var(--teams);
+      color: white;
+      border-color: var(--teams);
+    }
+    .mac-btn-action.teams:hover {
+      background: var(--teams-hover);
+    }
+    .mac-btn-action.vcf {
+      flex: 0 0 34px;
+      padding: 0;
+      font-size: 0.85rem;
+    }
+
+    /* macOS Table View */
+    .mac-table-card {
+      background: var(--mac-card-bg);
+      border: 1px solid var(--mac-card-border);
+      border-radius: 16px;
+      overflow-x: auto;
+      box-shadow: var(--mac-card-shadow);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.86rem;
+    }
+    th {
+      background: var(--mac-bg);
+      color: var(--mac-text-secondary);
+      font-weight: 600;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--mac-border);
+      text-transform: uppercase;
+      font-size: 0.72rem;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+    td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--mac-border);
+      color: var(--mac-text);
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(0, 0, 0, 0.02); }
+    [data-theme="dark"] tr:hover td { background: rgba(255, 255, 255, 0.03); }
+
+    .empty-state {
+      text-align: center;
+      padding: 50px 20px;
+      color: var(--mac-text-secondary);
+      font-size: 0.95rem;
+    }
+
+    /* macOS Floating Toast Notification */
+    .mac-toast {
+      position: fixed;
+      bottom: 26px;
+      right: 26px;
+      background: rgba(29, 29, 31, 0.85);
+      color: white;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding: 11px 20px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      font-size: 0.84rem;
+      font-weight: 500;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(12px) scale(0.97);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 9999;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    [data-theme="dark"] .mac-toast {
+      background: rgba(45, 45, 50, 0.9);
+    }
+    .mac-toast.show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* ImpressÃ£o Limpa em PDF */
+    @media print {
+      body { background: white !important; color: black !important; }
+      .mac-window-header, .mac-toolbar, .mac-card-footer, .mac-copy-btn { display: none !important; }
+      .container { max-width: 100% !important; padding: 0 !important; }
+      .print-header { display: block !important; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid #0071e3; }
+      .print-header h2 { font-size: 15pt; color: #0071e3; }
+      .print-header p { font-size: 9.5pt; color: #555; }
+      #contactsGrid { display: none !important; }
+      #contactsTableContainer { display: block !important; border: none !important; }
+      table { font-size: 8.5pt !important; width: 100% !important; }
+      th, td { padding: 4px 6px !important; border-bottom: 1px solid #ddd !important; }
+      th { background: #f0f4f8 !important; color: #333 !important; }
+      .mac-badge { border: 1px solid #999; color: black !important; background: none !important; }
+    }
+    .print-header { display: none; }
+  </style>
+</head>
+<body>
+
+  <!-- macOS Window Header Bar -->
+  <header class="mac-window-header">
+    <div class="mac-left-section">
+      <!-- Traffic Lights -->
+      <div class="mac-traffic-lights">
+        <span class="traffic-dot dot-close" title="Fechar"></span>
+        <span class="traffic-dot dot-minimize" title="Minimizar"></span>
+        <span class="traffic-dot dot-expand" title="EcrÃ£ Inteiro"></span>
+      </div>
+
+      <!-- App Title Group -->
+      <div class="mac-title-group">
+        <div class="mac-republica-emblem" title="RepÃºblica Portuguesa">
+          <svg viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="46" fill="#006600"/>
+            <path d="M 50,4 A 46,46 0 0,1 96,50 L 50,50 Z" fill="#CC0000"/>
+            <path d="M 96,50 A 46,46 0 0,1 50,96 L 50,50 Z" fill="#CC0000"/>
+            <circle cx="50" cy="50" r="24" fill="#FFCC00" stroke="#000" stroke-width="2"/>
+            <rect x="42" y="38" width="16" height="24" rx="2" fill="#FFFFFF" stroke="#000" stroke-width="1.5"/>
+            <path d="M 46,44 L 54,44 M 50,40 L 50,58" stroke="#003399" stroke-width="2.5"/>
+          </svg>
+        </div>
+        <div class="mac-title-text">
+          <h1>MinistÃ©rio das FinanÃ§as &bull; DiretÃ³rio</h1>
+          <p>SEAO &bull; SEAF &bull; SEAP &bull; LogÃ­stica</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- macOS Center: Segmented Navigation -->
+    <div class="mac-segmented-control">
+      <button class="mac-segment-btn active" id="tabBtnContacts" onclick="switchTab('contacts')">
+        &#128100; Colaboradores
+      </button>
+      <button class="mac-segment-btn" id="tabBtnResources" onclick="switchTab('resources')">
+        &#128663; Frota & Salas
+      </button>
+    </div>
+
+    <!-- macOS Right: Counter Badge & Dark Mode Button -->
+    <div class="mac-right-section">
+      <div class="mac-pill-badge">
+        <span>Total:</span>
+        <strong id="stat-contacts">53</strong>
+      </div>
+      <button class="mac-btn-icon" id="themeBtn" onclick="toggleTheme()" title="Alternar Tema Claro / Escuro">
+        &#127769;
+      </button>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="print-header">
+      <h2>MinistÃ©rio das FinanÃ§as â€” DiretÃ³rio de Contactos</h2>
+      <p id="printSubtitle">Listagem Oficial dos Gabinetes (SEAO â€¢ SEAF â€¢ SEAP)</p>
+    </div>
+
+    <!-- macOS Sub-Toolbar (Search + Segmented Filters) -->
+    <div class="mac-toolbar">
+      <div class="mac-search-wrapper">
+        <span class="mac-search-icon">&#128269;</span>
+        <input type="text" id="searchInput" placeholder="Pesquisar por nome, cargo, ramal, sala, email... (prima /)" oninput="filterData()">
+      </div>
+
+      <div class="mac-filter-label">Gabinete:</div>
+      <div class="mac-segmented-group">
+        <button class="mac-filter-item active" id="btnGab-ALL" onclick="setCabinet('ALL')">Todos</button>
+        <button class="mac-filter-item" id="btnGab-SEAO" onclick="setCabinet('SEAO')">SEAO</button>
+        <button class="mac-filter-item" id="btnGab-SEAF" onclick="setCabinet('SEAF')">SEAF</button>
+        <button class="mac-filter-item" id="btnGab-SEAP" onclick="setCabinet('SEAP')">SEAP</button>
+      </div>
+
+      <div class="mac-filter-label" id="areaLabel">Ãrea:</div>
+      <div class="mac-segmented-group" id="areaFilterGroup">
+        <button class="mac-filter-item active" onclick="setArea('ALL')">Todas</button>
+        <button class="mac-filter-item" onclick="setArea('Gabinete')">Gabinete</button>
+        <button class="mac-filter-item" onclick="setArea('Secretaria')">Secretaria</button>
+      </div>
+
+      <div class="mac-actions-group">
+        <button class="mac-tool-btn" id="viewToggleBtn" onclick="toggleViewMode()" title="Alternar entre CartÃµes e Tabela Compacta">
+          &#128203; <span id="viewModeText">Tabela</span>
+        </button>
+        <button class="mac-tool-btn" onclick="exportToCSV()" title="Exportar para Excel / CSV">
+          &#128229; Excel
+        </button>
+        <button class="mac-tool-btn" onclick="window.print()" title="Imprimir ou PDF">
+          &#128424; PDF
+        </button>
+      </div>
+    </div>
+
+    <!-- Contacts View -->
+    <div id="contactsView">
+      <div class="cards-grid" id="contactsGrid"></div>
+      <div class="mac-table-card" id="contactsTableContainer" style="display: none;">
+        <table>
+          <thead>
+            <tr>
+              <th>Gabinete</th>
+              <th>Ãrea</th>
+              <th>Cargo</th>
+              <th>Nome</th>
+              <th>Ramal VOIP</th>
+              <th>Telefone Direto</th>
+              <th>TelemÃ³vel</th>
+              <th>Piso / Sala</th>
+              <th>Correio EletrÃ³nico</th>
+              <th>AÃ§Ãµes</th>
+            </tr>
+          </thead>
+          <tbody id="contactsTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Resources View -->
+    <div id="resourcesView" style="display: none;">
+      <div class="mac-table-card">
+        <table>
+          <thead>
+            <tr>
+              <th>Gabinete</th>
+              <th>Tipo</th>
+              <th>DesignaÃ§Ã£o / Recurso</th>
+              <th>ResponsÃ¡vel / Motorista</th>
+              <th>Contactos TelefÃ³nicos</th>
+              <th>MatrÃ­cula / Sala</th>
+              <th>Capacidade / Detalhes</th>
+              <th>AÃ§Ãµes</th>
+            </tr>
+          </thead>
+          <tbody id="resourcesBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="mac-toast" id="toast">Copiado para a Ãrea de TransferÃªncia!</div>
+
+  <script>
+    const contacts = [{"Gabinete":"SEAO","Área / Função":"Gabinete","Cargo":"Chefe do Gabinete","Nome":"Dra. Sara Arrábida","E-mail":"sara.arrabida@mf.gov.pt","Telefone Direto":"218 816 021","Ramal Interno":"433 021","Telemóvel":"916 406 286","Piso / Sala":"Sala 14","Notas":""},{"Gabinete":"SEAO","Área / Função":"Gabinete","Cargo":"Secretariado","Nome":"Catarina Brito","E-mail":"catarina.brito@mf.gov.pt","Telefone Direto":"218 817 334","Ramal Interno":"433 334","Telemóvel":"966 389 719","Piso / Sala":"Sala 16","Notas":""},{"Gabinete":"SEAO","Área / Função":"Gabinete","Cargo":"Adjunta","Nome":"Fernanda Peixinho","E-mail":"fernanda.peixinho@mf.gov.pt","Telefone Direto":"218 817 336","Ramal Interno":"433 336","Telemóvel":"962 148 880","Piso / Sala":"Sala 13","Notas":""},{"Gabinete":"SEAO","Área / Função":"Gabinete","Cargo":"Técnico Especialista","Nome":"Dr. André Morais","E-mail":"andre.morais@mf.gov.pt","Telefone Direto":"218 816 953","Ramal Interno":"433 953","Telemóvel":"","Piso / Sala":"Sala 17","Notas":""},{"Gabinete":"SEAO","Área / Função":"Gabinete","Cargo":"Técnica Especialista","Nome":"Dra. Cláudia Madalena","E-mail":"claudia.madalena@mf.gov.pt","Telefone Direto":"218 817 343","Ramal Interno":"433 343","Telemóvel":"","Piso / Sala":"Sala 12","Notas":""},{"Gabinete":"SEAO","Área / Função":"Gabinete","Cargo":"Técnico Especialista","Nome":"Dr. João Fonseca","E-mail":"joao.fonseca@mf.gov.pt","Telefone Direto":"218 817 355","Ramal Interno":"433 355","Telemóvel":"","Piso / Sala":"Sala 13","Notas":""},{"Gabinete":"SEAO","Área / Função":"Gabinete","Cargo":"Técnico Especialista","Nome":"Dr. João Parreira","E-mail":"joao.parreira@mf.gov.pt","Telefone Direto":"","Ramal Interno":"433 340","Telemóvel":"916 739 349","Piso / Sala":"Sala 12","Notas":""},{"Gabinete":"SEAO","Área / Função":"Gabinete","Cargo":"Técnica Especialista","Nome":"Dra. Leonor Farmhouse","E-mail":"leonor.farmhouse@mf.gov.pt","Telefone Direto":"218 817 340","Ramal Interno":"433 351","Telemóvel":"","Piso / Sala":"Sala 9","Notas":""},{"Gabinete":"SEAO","Área / Função":"Gabinete","Cargo":"Técnica Especialista","Nome":"Dra. Lídia Martins","E-mail":"lidia.martins@mf.gov.pt","Telefone Direto":"","Ramal Interno":"433 353","Telemóvel":"931 793 079","Piso / Sala":"Sala 11","Notas":""},{"Gabinete":"SEAO","Área / Função":"Gabinete","Cargo":"Técnica Especialista","Nome":"Dra. Lisa Ferraz da Costa","E-mail":"lisa.costa@mf.gov.pt","Telefone Direto":"218 817 351","Ramal Interno":"433 339","Telemóvel":"935 500 061","Piso / Sala":"","Notas":""},{"Gabinete":"SEAO","Área / Função":"Gabinete","Cargo":"Técnica Especialista","Nome":"Dra. Mafalda Rodrigues","E-mail":"mafalda.rodrigues@mf.gov.pt","Telefone Direto":"218 817 341","Ramal Interno":"433 341","Telemóvel":"927 482 393","Piso / Sala":"Sala 13","Notas":""},{"Gabinete":"SEAO","Área / Função":"Gabinete","Cargo":"Técnica Especialista","Nome":"Dra. Maria João Vicente","E-mail":"maria.vicente@mf.gov.pt","Telefone Direto":"218 816 835","Ramal Interno":"433 335","Telemóvel":"937 370 061","Piso / Sala":"Sala 9","Notas":""},{"Gabinete":"SEAO","Área / Função":"Gabinete","Cargo":"Técnico Especialista","Nome":"Dr. Paulo Almeida","E-mail":"paulo.almeida@mf.gov.pt","Telefone Direto":"218 817 321","Ramal Interno":"433 321","Telemóvel":"965 020 736","Piso / Sala":"Sala 11","Notas":""},{"Gabinete":"SEAO","Área / Função":"Gabinete","Cargo":"Técnica Especialista","Nome":"Dra. Soraia Ferreira","E-mail":"soraia.ferreira@mf.gov.pt","Telefone Direto":"218 817 320","Ramal Interno":"433 320","Telemóvel":"962 930 907","Piso / Sala":"Sala 11","Notas":""},{"Gabinete":"SEAO","Área / Função":"Secretaria de Apoio","Cargo":"Coordenadora","Nome":"Ana Maurício","E-mail":"ana.mauricio@mf.gov.pt","Telefone Direto":"218 817 358","Ramal Interno":"433 358","Telemóvel":"","Piso / Sala":"Sala 32","Notas":""},{"Gabinete":"SEAO","Área / Função":"Secretaria de Apoio","Cargo":"Colaboradora","Nome":"Paula Amorim","E-mail":"paula.amorim@mf.gov.pt","Telefone Direto":"218 817 254","Ramal Interno":"433 354","Telemóvel":"","Piso / Sala":"","Notas":""},{"Gabinete":"SEAO","Área / Função":"Secretaria de Apoio","Cargo":"Colaboradora","Nome":"Tânia Borges","E-mail":"tania.borges@mf.gov.pt","Telefone Direto":"218 817 357","Ramal Interno":"433 357","Telemóvel":"","Piso / Sala":"Sala 34","Notas":""},{"Gabinete":"SEAO","Área / Função":"Secretaria de Apoio","Cargo":"Colaboradora","Nome":"Maria Fernandes","E-mail":"maria.fernandes@mf.gov.pt","Telefone Direto":"218 817 348","Ramal Interno":"433 348","Telemóvel":"","Piso / Sala":"2.º Piso","Notas":""},{"Gabinete":"SEAO","Área / Função":"Secretaria de Apoio","Cargo":"Assistente Operacional","Nome":"Susana Moura","E-mail":"susana.moura@mf.gov.pt","Telefone Direto":"218 817 345","Ramal Interno":"433 345 / 433 337","Telemóvel":"","Piso / Sala":"1.º Piso","Notas":""},{"Gabinete":"SEAF","Área / Função":"Gabinete","Cargo":"Chefe do Gabinete","Nome":"Dr. João Pedro Santos","E-mail":"joao.pedro.santos@mf.gov.pt","Telefone Direto":"218 817 041","Ramal Interno":"433 041","Telemóvel":"963 595 038","Piso / Sala":"Sala 1","Notas":""},{"Gabinete":"SEAF","Área / Função":"Gabinete","Cargo":"Secretariado","Nome":"Ana Paula Pinto","E-mail":"anappinto@mf.gov.pt","Telefone Direto":"218 817 143","Ramal Interno":"433 143","Telemóvel":"962 320 617","Piso / Sala":"Sala 2","Notas":""},{"Gabinete":"SEAF","Área / Função":"Gabinete","Cargo":"Secretariado","Nome":"Inês Resina","E-mail":"ines.resina@mf.gov.pt","Telefone Direto":"218 817 144","Ramal Interno":"433 144","Telemóvel":"919 930 148","Piso / Sala":"Sala 2","Notas":""},{"Gabinete":"SEAF","Área / Função":"Gabinete","Cargo":"Adjunta","Nome":"Dra. Marta Carmo","E-mail":"marta.carmo@mf.gov.pt","Telefone Direto":"218 817 133","Ramal Interno":"433 133","Telemóvel":"966 258 991","Piso / Sala":"Sala 8","Notas":""},{"Gabinete":"SEAF","Área / Função":"Gabinete","Cargo":"Adjunta","Nome":"Dra. Cristiana Santos","E-mail":"cristiana.santos@mf.gov.pt","Telefone Direto":"218 817 132","Ramal Interno":"433 132","Telemóvel":"911 965 487","Piso / Sala":"","Notas":""},{"Gabinete":"SEAF","Área / Função":"Gabinete","Cargo":"Adjunta","Nome":"Dra. Inês Matoso","E-mail":"ines.matoso@mf.gov.pt","Telefone Direto":"218 817 130","Ramal Interno":"433 130","Telemóvel":"962 751 903","Piso / Sala":"Sala 6","Notas":""},{"Gabinete":"SEAF","Área / Função":"Gabinete","Cargo":"Adjunta","Nome":"Dra. Carmen Silva","E-mail":"carmen.silva@mf.gov.pt","Telefone Direto":"218 817 146","Ramal Interno":"433 146","Telemóvel":"910 722 210","Piso / Sala":"","Notas":""},{"Gabinete":"SEAF","Área / Função":"Gabinete","Cargo":"Técnica Especialista","Nome":"Dra. Beatriz Teixeira","E-mail":"beatriz.teixeira@mf.gov.pt","Telefone Direto":"218 817 148","Ramal Interno":"433 148","Telemóvel":"933 173 494","Piso / Sala":"Sala 8","Notas":""},{"Gabinete":"SEAF","Área / Função":"Gabinete","Cargo":"Técnica Especialista","Nome":"Dra. Catarina Alvarez","E-mail":"catarina.alvarez@mf.gov.pt","Telefone Direto":"218 817 147","Ramal Interno":"433 147","Telemóvel":"919 148 277","Piso / Sala":"Sala 6","Notas":""},{"Gabinete":"SEAF","Área / Função":"Gabinete","Cargo":"Técnica Especialista","Nome":"Dra. Mariana Branco","E-mail":"marianagameirobranco@mf.gov.pt","Telefone Direto":"218 816 824","Ramal Interno":"433 824","Telemóvel":"914 613 893","Piso / Sala":"Sala 9","Notas":""},{"Gabinete":"SEAF","Área / Função":"Gabinete","Cargo":"Técnica Especialista","Nome":"Dra. Liliana Escada","E-mail":"liliana.escada@mf.gov.pt","Telefone Direto":"","Ramal Interno":"433 135","Telemóvel":"968 939 126","Piso / Sala":"","Notas":""},{"Gabinete":"SEAF","Área / Função":"Secretaria de Apoio","Cargo":"Coordenadora","Nome":"Alexandra Estorninho","E-mail":"alexandrae@mf.gov.pt","Telefone Direto":"218 817 117","Ramal Interno":"433 117","Telemóvel":"","Piso / Sala":"","Notas":""},{"Gabinete":"SEAF","Área / Função":"Secretaria de Apoio","Cargo":"Colaboradora","Nome":"Maria José Nogueira","E-mail":"maria.nogueira@mf.gov.pt","Telefone Direto":"218 817 125","Ramal Interno":"433 125","Telemóvel":"","Piso / Sala":"Sala 12","Notas":""},{"Gabinete":"SEAF","Área / Função":"Secretaria de Apoio","Cargo":"Colaboradora","Nome":"Ana Ramos","E-mail":"anamaria.ramos@mf.gov.pt","Telefone Direto":"218 817 108","Ramal Interno":"433 108","Telemóvel":"","Piso / Sala":"","Notas":""},{"Gabinete":"SEAF","Área / Função":"Secretaria de Apoio","Cargo":"Colaboradora","Nome":"Helena Maria Brázio","E-mail":"helena.brazio@mf.gov.pt","Telefone Direto":"218 817 131","Ramal Interno":"433 131","Telemóvel":"","Piso / Sala":"","Notas":""},{"Gabinete":"SEAF","Área / Função":"Secretaria de Apoio","Cargo":"Assistente Operacional","Nome":"Elisabete Pica","E-mail":"elisabete.pica@mf.gov.pt","Telefone Direto":"218 817 090","Ramal Interno":"433 090","Telemóvel":"","Piso / Sala":"Sala 11","Notas":""},{"Gabinete":"SEAP","Área / Função":"Gabinete","Cargo":"Chefe do Gabinete","Nome":"Dra. Alexandra Alvarez","E-mail":"alexandra.alvarez@mf.gov.pt","Telefone Direto":"218 817 031","Ramal Interno":"433 031","Telemóvel":"964 786 496","Piso / Sala":"Sala 6","Notas":""},{"Gabinete":"SEAP","Área / Função":"Gabinete","Cargo":"Secretariado","Nome":"Raquel Coluna","E-mail":"raquel.coluna@mf.gov.pt","Telefone Direto":"218 817 257","Ramal Interno":"433 257","Telemóvel":"934 370 770","Piso / Sala":"Sala 8","Notas":""},{"Gabinete":"SEAP","Área / Função":"Gabinete","Cargo":"Secretariado","Nome":"Anabela Franco","E-mail":"anabela.franco@mf.gov.pt","Telefone Direto":"218 817 245","Ramal Interno":"433 245","Telemóvel":"963 368 427","Piso / Sala":"","Notas":""},{"Gabinete":"SEAP","Área / Função":"Gabinete","Cargo":"Adjunta","Nome":"Dra. Paula Baptista","E-mail":"paula.baptista@mf.gov.pt","Telefone Direto":"218 817 979","Ramal Interno":"433 979","Telemóvel":"931 370 866","Piso / Sala":"Sala 4","Notas":""},{"Gabinete":"SEAP","Área / Função":"Gabinete","Cargo":"Adjunto","Nome":"Dr. João Miguel Costa","E-mail":"joao.m.costa@mf.gov.pt","Telefone Direto":"218 817 251","Ramal Interno":"433 251","Telemóvel":"963 280 234","Piso / Sala":"Sala 3","Notas":""},{"Gabinete":"SEAP","Área / Função":"Gabinete","Cargo":"Adjunta","Nome":"Dra. Fátima Russo","E-mail":"fatima.russo@mf.gov.pt","Telefone Direto":"218 817 290","Ramal Interno":"433 290","Telemóvel":"930 620 027","Piso / Sala":"","Notas":""},{"Gabinete":"SEAP","Área / Função":"Gabinete","Cargo":"Adjunta","Nome":"Dra. Marta Nunes","E-mail":"marta.nunes@mf.gov.pt","Telefone Direto":"218 817 246","Ramal Interno":"433 246","Telemóvel":"936 200 007","Piso / Sala":"Sala 2","Notas":""},{"Gabinete":"SEAP","Área / Função":"Gabinete","Cargo":"Técnica Especialista","Nome":"Dra. Fátima Rodrigues","E-mail":"fatima.rodrigues@mf.gov.pt","Telefone Direto":"218 817 889","Ramal Interno":"433 889","Telemóvel":"935 240 050","Piso / Sala":"","Notas":""},{"Gabinete":"SEAP","Área / Função":"Gabinete","Cargo":"Técnica Especialista","Nome":"Dra. Sónia Matos","E-mail":"sonia.matos@mf.gov.pt","Telefone Direto":"218 817 250","Ramal Interno":"433 250","Telemóvel":"938 560 193","Piso / Sala":"","Notas":""},{"Gabinete":"SEAP","Área / Função":"Gabinete","Cargo":"Técnico Especialista","Nome":"Dr. Daniel Salazar","E-mail":"daniel.salazar@mf.gov.pt","Telefone Direto":"218 817 997","Ramal Interno":"433 997","Telemóvel":"913 261 668","Piso / Sala":"","Notas":""},{"Gabinete":"SEAP","Área / Função":"Gabinete","Cargo":"Técnica Especialista","Nome":"Dra. Carina Anunciação","E-mail":"carina.anunciacao@mf.gov.pt","Telefone Direto":"218 817 229","Ramal Interno":"433 229","Telemóvel":"962 448 044","Piso / Sala":"","Notas":""},{"Gabinete":"SEAP","Área / Função":"Gabinete","Cargo":"Técnica Especialista","Nome":"Dra. Raquel Figueiredo","E-mail":"raquel.figueiredo@mf.gov.pt","Telefone Direto":"218 817 333","Ramal Interno":"433 333","Telemóvel":"912 735 591","Piso / Sala":"Sala 7","Notas":""},{"Gabinete":"SEAP","Área / Função":"Gabinete","Cargo":"Técnica Especialista","Nome":"Dra. Liliana Fontoura","E-mail":"liliana.fontoura@mf.gov.pt","Telefone Direto":"","Ramal Interno":"433 253","Telemóvel":"969 001 992","Piso / Sala":"","Notas":""},{"Gabinete":"SEAP","Área / Função":"Gabinete","Cargo":"Técnica Especialista","Nome":"Dra. Sofia Vala Rocha","E-mail":"sofiavalarocha@mf.gov.pt","Telefone Direto":"218 817 274","Ramal Interno":"433 274","Telemóvel":"935 410 060","Piso / Sala":"Sala 4","Notas":""},{"Gabinete":"SEAP","Área / Função":"Gabinete","Cargo":"Técnico Especialista","Nome":"Dr. Francisco Mota Ferreira","E-mail":"francisco.ferreira@mf.gov.pt","Telefone Direto":"","Ramal Interno":"433 256","Telemóvel":"913 114 960","Piso / Sala":"Sala 3","Notas":""},{"Gabinete":"SEAP","Área / Função":"Secretaria de Apoio","Cargo":"Coordenadora","Nome":"Ana Cristina Carvalho","E-mail":"anacristina.carvalho@mf.gov.pt","Telefone Direto":"218 817 145","Ramal Interno":"433 145","Telemóvel":"969 465 268","Piso / Sala":"","Notas":""},{"Gabinete":"SEAP","Área / Função":"Secretaria de Apoio","Cargo":"Colaboradora","Nome":"Vera Mendes","E-mail":"vera.mendes@mf.gov.pt","Telefone Direto":"218 817 207","Ramal Interno":"433 207","Telemóvel":"924 349 012","Piso / Sala":"Sala 5","Notas":""},{"Gabinete":"SEAP","Área / Função":"Secretaria de Apoio","Cargo":"Assistente Operacional","Nome":"Joana Mira","E-mail":"joana.mira@mf.gov.pt","Telefone Direto":"","Ramal Interno":"433 206","Telemóvel":"918 294 771","Piso / Sala":"","Notas":""}];
+    const resources = [{"Gabinete":"SEAO","Tipo de Recurso":"Viatura","Designação / Recurso":"Mercedes","Responsável / Motorista":"João Esteves","E-mail":"manuel.esteves@mf.gov.pt","Telemóvel / Telefone":"964 777 330 / 434 11 008","Identificador / Matrícula":"BU-77-QX","Capacidade / Detalhes":"Viatura Afeta"},{"Gabinete":"SEAO","Tipo de Recurso":"Viatura","Designação / Recurso":"SMART #1 Pro","Responsável / Motorista":"Pedro Lima","E-mail":"pedro.lima@mf.gov.pt","Telemóvel / Telefone":"932 980 264 / 218 846 854","Identificador / Matrícula":"CH-68-DA","Capacidade / Detalhes":"Viatura Afeta"},{"Gabinete":"SEAO","Tipo de Recurso":"Viatura","Designação / Recurso":"Renault Megane","Responsável / Motorista":"Reserva Gabinete","E-mail":"","Telemóvel / Telefone":"","Identificador / Matrícula":"AU-27-PR","Capacidade / Detalhes":"Reserva / Frota"},{"Gabinete":"SEAO","Tipo de Recurso":"Viatura","Designação / Recurso":"BMW X3","Responsável / Motorista":"Reserva Gabinete","E-mail":"","Telemóvel / Telefone":"","Identificador / Matrícula":"89-XG-38","Capacidade / Detalhes":"Reserva / Frota"},{"Gabinete":"SEAO","Tipo de Recurso":"Espaço","Designação / Recurso":"Sala de Reuniões","Responsável / Motorista":"","E-mail":"","Telemóvel / Telefone":"","Identificador / Matrícula":"Sala 19 (1.º Piso)","Capacidade / Detalhes":"Capacidade para 10 pessoas"},{"Gabinete":"SEAF","Tipo de Recurso":"Viatura","Designação / Recurso":"BMW","Responsável / Motorista":"Helder Sousa","E-mail":"helder.sousa@mf.gov.pt","Telemóvel / Telefone":"938 630 113 / 434 11 008","Identificador / Matrícula":"AA-40-PG","Capacidade / Detalhes":"Viatura Afeta"},{"Gabinete":"SEAF","Tipo de Recurso":"Viatura","Designação / Recurso":"Mercedes","Responsável / Motorista":"Válter Pires","E-mail":"valterpires@msn.com","Telemóvel / Telefone":"960 236 434 / 218 846 854","Identificador / Matrícula":"81-OH-94","Capacidade / Detalhes":"Viatura Afeta"},{"Gabinete":"SEAF","Tipo de Recurso":"Viatura","Designação / Recurso":"BMW","Responsável / Motorista":"Válter Pires","E-mail":"valterpires@msn.com","Telemóvel / Telefone":"960 236 434 / 218 846 854","Identificador / Matrícula":"16-21-ZO","Capacidade / Detalhes":"Viatura Afeta"},{"Gabinete":"SEAF","Tipo de Recurso":"Espaço","Designação / Recurso":"Sala de Reuniões","Responsável / Motorista":"","E-mail":"","Telemóvel / Telefone":"","Identificador / Matrícula":"Sala 10 (2.º Piso)","Capacidade / Detalhes":"Capacidade 10 pessoas | Ext. 434 10 302"},{"Gabinete":"SEAP","Tipo de Recurso":"Viatura","Designação / Recurso":"Mercedes","Responsável / Motorista":"Paulo Martins","E-mail":"paulo.martins@mf.gov.pt","Telemóvel / Telefone":"913 956 381 / 218 846 854","Identificador / Matrícula":"BU-50-QZ","Capacidade / Detalhes":"Viatura Afeta"},{"Gabinete":"SEAP","Tipo de Recurso":"Viatura","Designação / Recurso":"Smart","Responsável / Motorista":"Filipe Marques","E-mail":"filipe.marques@mf.gov.pt","Telemóvel / Telefone":"939 470 481 / 218 846 854","Identificador / Matrícula":"BU-81-IV","Capacidade / Detalhes":"Viatura Afeta"},{"Gabinete":"SEAP","Tipo de Recurso":"Espaço","Designação / Recurso":"Sala de Reuniões","Responsável / Motorista":"","E-mail":"","Telemóvel / Telefone":"","Identificador / Matrícula":"Sala A/B (1.º Piso)","Capacidade / Detalhes":"Capacidade para 10 Pessoas"}];
+
+    let currentCabinet = 'ALL';
+    let currentArea = 'ALL';
+    let currentTab = 'contacts';
+    let viewMode = 'cards';
+    let currentTheme = 'light';
+
+    document.getElementById('stat-contacts').innerText = contacts.length;
+
+    function getInitials(name) {
+      if (!name) return 'MF';
+      const clean = name.replace(/^(Dr\.|Dra\.|Eng\.|Prof\.)\s+/i, '').trim();
+      const parts = clean.split(/\s+/).filter(Boolean);
+      if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+      return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+    }
+
+    function normalizeStr(str) {
+      return (str || '')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .trim();
+    }
+
+    function toggleTheme() {
+      currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', currentTheme);
+      const btn = document.getElementById('themeBtn');
+      if (currentTheme === 'dark') {
+        btn.innerHTML = '&#9728;&#65039;';
+      } else {
+        btn.innerHTML = '&#127769;';
+      }
+    }
+
+    function toggleViewMode() {
+      viewMode = viewMode === 'cards' ? 'table' : 'cards';
+      const text = document.getElementById('viewModeText');
+      if (viewMode === 'table') {
+        text.innerText = 'CartÃµes';
+        document.getElementById('contactsGrid').style.display = 'none';
+        document.getElementById('contactsTableContainer').style.display = 'block';
+      } else {
+        text.innerText = 'Tabela';
+        document.getElementById('contactsGrid').style.display = 'grid';
+        document.getElementById('contactsTableContainer').style.display = 'none';
+      }
+      filterData();
+    }
+
+    function switchTab(tab) {
+      currentTab = tab;
+      document.getElementById('tabBtnContacts').classList.toggle('active', tab === 'contacts');
+      document.getElementById('tabBtnResources').classList.toggle('active', tab === 'resources');
+      document.getElementById('areaFilterGroup').style.display = tab === 'contacts' ? 'inline-flex' : 'none';
+      document.getElementById('areaLabel').style.display = tab === 'contacts' ? 'inline' : 'none';
+      document.getElementById('viewToggleBtn').style.display = tab === 'contacts' ? 'flex' : 'none';
+
+      if (tab === 'contacts') {
+        document.getElementById('contactsView').style.display = 'block';
+        document.getElementById('resourcesView').style.display = 'none';
+      } else {
+        document.getElementById('contactsView').style.display = 'none';
+        document.getElementById('resourcesView').style.display = 'block';
+      }
+      filterData();
+    }
+
+    function setCabinet(cab) {
+      currentCabinet = cab;
+      const gabs = ['ALL', 'SEAO', 'SEAF', 'SEAP'];
+      gabs.forEach(g => {
+        const el = document.getElementById(`btnGab-${g}`);
+        if (el) el.classList.toggle('active', g === cab);
+      });
+      filterData();
+    }
+
+    function setArea(area) {
+      currentArea = area;
+      const btns = document.querySelectorAll('#areaFilterGroup .mac-filter-item');
+      btns.forEach(btn => {
+        btn.classList.toggle('active', btn.innerText === area || (area === 'ALL' && btn.innerText === 'Todas'));
+      });
+      filterData();
+    }
+
+    function copyText(val, label) {
+      if (!val || val === 'â€”' || val === '-') return;
+      const clean = val.replace(/\s+/g, ' ').trim();
+      navigator.clipboard.writeText(clean).then(() => {
+        showToast(`&#128203; ${label}: "${clean}" copiado!`);
+      }).catch(() => {
+        showToast(`&#128203; ${clean} copiado!`);
+      });
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.innerHTML = msg;
+      t.classList.add('show');
+      setTimeout(() => { t.classList.remove('show'); }, 2200);
+    }
+
+    function downloadVCard(c) {
+      const nome = c['Nome'] || 'Contacto';
+      const cargo = c['Cargo'] || '';
+      const gab = c['Gabinete'] || '';
+      const email = c['E-mail'] || '';
+      const tel = c['Telefone Direto'] || '';
+      const movel = c['TelemÃ³vel'] || '';
+      const ramal = c['Ramal Interno'] || '';
+
+      const vcard = [
+        'BEGIN:VCARD',
+        'VERSION:3.0',
+        `FN:${nome}`,
+        `ORG:MinistÃ©rio das FinanÃ§as;Gabinete ${gab}`,
+        `TITLE:${cargo}`,
+        email ? `EMAIL;TYPE=INTERNET,WORK:${email}` : '',
+        tel ? `TEL;TYPE=WORK,VOICE:${tel}` : '',
+        movel ? `TEL;TYPE=CELL,VOICE:${movel}` : '',
+        ramal ? `NOTE:Ramal VOIP: ${ramal}` : '',
+        'END:VCARD'
+      ].filter(Boolean).join('\r\n');
+
+      const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${nome.replace(/\s+/g, '_')}.vcf`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToast(`&#128100; Contacto ${nome} descarregado (.vcf)!`);
+    }
+
+    let lastFilteredContacts = [];
+    let lastFilteredResources = [];
+
+    function filterData() {
+      const rawQuery = document.getElementById('searchInput').value;
+      const query = normalizeStr(rawQuery);
+
+      if (currentTab === 'contacts') {
+        lastFilteredContacts = contacts.filter(c => {
+          const matchCab = currentCabinet === 'ALL' || c['Gabinete'] === currentCabinet;
+          const areaVal = c['Ãrea / FunÃ§Ã£o'] || c['Area / Funcao'] || '';
+          let matchArea = true;
+          if (currentArea === 'Gabinete') {
+            matchArea = normalizeStr(areaVal).includes('gabinete');
+          } else if (currentArea === 'Secretaria') {
+            matchArea = normalizeStr(areaVal).includes('secretaria');
+          }
+
+          const searchStr = normalizeStr(`${c['Nome']} ${c['Cargo']} ${c['E-mail']} ${c['Ramal Interno']} ${c['TelemÃ³vel']} ${c['Telefone Direto']} ${c['Piso / Sala']} ${areaVal}`);
+          const matchQuery = !query || searchStr.includes(query);
+          return matchCab && matchArea && matchQuery;
+        });
+        renderContacts(lastFilteredContacts);
+      } else {
+        lastFilteredResources = resources.filter(r => {
+          const matchCab = currentCabinet === 'ALL' || r['Gabinete'] === currentCabinet;
+          const searchStr = normalizeStr(`${r['DesignaÃ§Ã£o / Recurso']} ${r['Tipo de Recurso']} ${r['ResponsÃ¡vel / Motorista']} ${r['TelemÃ³vel / Telefone']} ${r['Identificador / MatrÃ­cula']} ${r['Capacidade / Detalhes']}`);
+          const matchQuery = !query || searchStr.includes(query);
+          return matchCab && matchQuery;
+        });
+        renderResources(lastFilteredResources);
+      }
+    }
+
+    function renderContacts(data) {
+      const grid = document.getElementById('contactsGrid');
+      const tableBody = document.getElementById('contactsTableBody');
+
+      if (!data.length) {
+        grid.innerHTML = '<div class="empty-state" style="grid-column: 1/-1;">Nenhum colaborador encontrado para a pesquisa.</div>';
+        tableBody.innerHTML = '<tr><td colspan="10" class="empty-state">Nenhum colaborador encontrado.</td></tr>';
+        return;
+      }
+
+      grid.innerHTML = data.map((c, idx) => {
+        const gab = c['Gabinete'] || 'SEAO';
+        const badgeClass = gab === 'SEAO' ? 'badge-seao' : (gab === 'SEAF' ? 'badge-seaf' : 'badge-seap');
+        const avatarClass = gab === 'SEAO' ? 'avatar-seao' : (gab === 'SEAF' ? 'avatar-seaf' : 'avatar-seap');
+        const phone = (c['Telefone Direto'] && c['Telefone Direto'] !== 'â€”' && c['Telefone Direto'] !== '-') ? c['Telefone Direto'] : '';
+        const mobile = (c['TelemÃ³vel'] && c['TelemÃ³vel'] !== 'â€”' && c['TelemÃ³vel'] !== '-') ? c['TelemÃ³vel'] : '';
+        const email = (c['E-mail'] && c['E-mail'] !== 'â€”' && c['E-mail'] !== '-') ? c['E-mail'] : '';
+        const ramal = (c['Ramal Interno'] && c['Ramal Interno'] !== 'â€”' && c['Ramal Interno'] !== '-') ? c['Ramal Interno'] : '';
+        const sala = (c['Piso / Sala'] && c['Piso / Sala'] !== 'â€”' && c['Piso / Sala'] !== '-') ? c['Piso / Sala'] : '';
+        const callTarget = mobile || phone;
+        const areaName = c['Ãrea / FunÃ§Ã£o'] || c['Area / Funcao'] || 'Gabinete';
+        const initials = getInitials(c['Nome']);
+
+        return `
+          <div class="mac-card">
+            <div>
+              <div class="mac-card-header">
+                <span class="mac-badge ${badgeClass}">${gab} &bull; ${areaName}</span>
+                ${sala ? `<span class="mac-room-chip">${sala}</span>` : ''}
+              </div>
+              
+              <div class="mac-profile-row">
+                <div class="mac-squircle-avatar ${avatarClass}">${initials}</div>
+                <div class="mac-person-details">
+                  <div class="mac-person-name" title="${c['Nome']}">${c['Nome']}</div>
+                  <div class="mac-person-role" title="${c['Cargo']}">${c['Cargo']}</div>
+                </div>
+              </div>
+
+              <div class="mac-contact-list">
+                ${ramal ? `
+                  <div class="mac-contact-entry">
+                    <span class="mac-field-tag">Ramal</span>
+                    <span class="mac-voip-pill">VOIP ${ramal}</span>
+                    <button class="mac-copy-btn" onclick="copyText('${ramal}', 'Ramal')" title="Copiar Ramal">&#128203;</button>
+                  </div>
+                ` : ''}
+                ${phone ? `
+                  <div class="mac-contact-entry">
+                    <span class="mac-field-tag">Direto</span>
+                    <a href="tel:${phone.replace(/\s+/g, '')}">${phone}</a>
+                    <button class="mac-copy-btn" onclick="copyText('${phone}', 'Telefone Direto')" title="Copiar Direto">&#128203;</button>
+                  </div>
+                ` : ''}
+                ${mobile ? `
+                  <div class="mac-contact-entry">
+                    <span class="mac-field-tag">MÃ³vel</span>
+                    <a href="tel:${mobile.replace(/\s+/g, '')}">${mobile}</a>
+                    <button class="mac-copy-btn" onclick="copyText('${mobile}', 'TelemÃ³vel')" title="Copiar TelemÃ³vel">&#128203;</button>
+                  </div>
+                ` : ''}
+                ${email ? `
+                  <div class="mac-contact-entry">
+                    <span class="mac-field-tag">E-mail</span>
+                    <a href="mailto:${email}">${email}</a>
+                    <button class="mac-copy-btn" onclick="copyText('${email}', 'E-mail')" title="Copiar E-mail">&#128203;</button>
+                  </div>
+                ` : ''}
+              </div>
+            </div>
+
+            <div class="mac-card-footer">
+              ${callTarget ? `<a class="mac-btn-action primary" href="tel:${callTarget.replace(/\s+/g, '')}" title="Efetuar Chamada">&#128222; Ligar</a>` : ''}
+              ${email ? `
+                <a class="mac-btn-action teams" href="msteams:/l/chat/0/0?users=${email}" title="Conversar no Microsoft Teams">&#128172; Teams</a>
+                <a class="mac-btn-action" href="mailto:${email}" title="Enviar E-mail via Outlook">&#9993; Email</a>
+              ` : ''}
+              <button class="mac-btn-action vcf" onclick="downloadVCard(contacts[${idx}])" title="Guardar Contacto (vCard .vcf)">&#128100;</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      tableBody.innerHTML = data.map((c, idx) => {
+        const gab = c['Gabinete'] || 'SEAO';
+        const badgeClass = gab === 'SEAO' ? 'badge-seao' : (gab === 'SEAF' ? 'badge-seaf' : 'badge-seap');
+        const phone = (c['Telefone Direto'] && c['Telefone Direto'] !== 'â€”' && c['Telefone Direto'] !== '-') ? c['Telefone Direto'] : '';
+        const mobile = (c['TelemÃ³vel'] && c['TelemÃ³vel'] !== 'â€”' && c['TelemÃ³vel'] !== '-') ? c['TelemÃ³vel'] : '';
+        const email = (c['E-mail'] && c['E-mail'] !== 'â€”' && c['E-mail'] !== '-') ? c['E-mail'] : '';
+        const ramal = (c['Ramal Interno'] && c['Ramal Interno'] !== 'â€”' && c['Ramal Interno'] !== '-') ? c['Ramal Interno'] : '';
+        const sala = (c['Piso / Sala'] && c['Piso / Sala'] !== 'â€”' && c['Piso / Sala'] !== '-') ? c['Piso / Sala'] : '';
+        const callTarget = mobile || phone;
+        const areaVal = c['Ãrea / FunÃ§Ã£o'] || c['Area / Funcao'] || 'Gabinete';
+
+        return `
+          <tr>
+            <td><span class="mac-badge ${badgeClass}">${gab}</span></td>
+            <td>${areaVal}</td>
+            <td><strong>${c['Cargo']}</strong></td>
+            <td>${c['Nome']}</td>
+            <td>${ramal ? `<span class="mac-voip-pill">${ramal}</span> <button class="mac-copy-btn" onclick="copyText('${ramal}', 'Ramal')">&#128203;</button>` : 'â€”'}</td>
+            <td>${phone ? `<a href="tel:${phone.replace(/\s+/g, '')}">${phone}</a> <button class="mac-copy-btn" onclick="copyText('${phone}', 'Telefone')">&#128203;</button>` : 'â€”'}</td>
+            <td>${mobile ? `<a href="tel:${mobile.replace(/\s+/g, '')}">${mobile}</a> <button class="mac-copy-btn" onclick="copyText('${mobile}', 'MÃ³vel')">&#128203;</button>` : 'â€”'}</td>
+            <td>${sala || 'â€”'}</td>
+            <td>${email ? `<a href="mailto:${email}">${email}</a> <button class="mac-copy-btn" onclick="copyText('${email}', 'Email')">&#128203;</button>` : 'â€”'}</td>
+            <td>
+              <div style="display: flex; gap: 4px;">
+                ${callTarget ? `<a class="mac-tool-btn" style="padding: 3px 6px;" href="tel:${callTarget.replace(/\s+/g, '')}" title="Ligar">&#128222;</a>` : ''}
+                ${email ? `
+                  <a class="mac-tool-btn" style="padding: 3px 6px; background: var(--teams); color: white; border-color: var(--teams);" href="msteams:/l/chat/0/0?users=${email}" title="Teams">&#128172;</a>
+                  <a class="mac-tool-btn" style="padding: 3px 6px;" href="mailto:${email}" title="Email">&#9993;</a>
+                ` : ''}
+                <button class="mac-tool-btn" style="padding: 3px 6px;" onclick="downloadVCard(contacts[${idx}])" title="vCard">&#128100;</button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function renderResources(data) {
+      const tbody = document.getElementById('resourcesBody');
+      if (!data.length) {
+        tbody.innerHTML = '<tr><td colspan="8" class="empty-state">Nenhum recurso encontrado.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = data.map(r => {
+        const badgeClass = r['Gabinete'] === 'SEAO' ? 'badge-seao' : (r['Gabinete'] === 'SEAF' ? 'badge-seaf' : 'badge-seap');
+        const cont = r['TelemÃ³vel / Telefone'] || '';
+        const email = r['E-mail'] || '';
+        const callTarget = cont ? cont.split('/')[0].trim() : '';
+
+        return `
+          <tr>
+            <td><span class="mac-badge ${badgeClass}">${r['Gabinete']}</span></td>
+            <td><strong>${r['Tipo de Recurso']}</strong></td>
+            <td>${r['DesignaÃ§Ã£o / Recurso']}</td>
+            <td>${r['ResponsÃ¡vel / Motorista'] || 'â€”'}</td>
+            <td>
+              ${cont ? `${cont} <button class="mac-copy-btn" onclick="copyText('${cont}', 'Contacto')">&#128203;</button>` : 'â€”'}
+            </td>
+            <td><code>${r['Identificador / MatrÃ­cula'] || 'â€”'}</code></td>
+            <td>${r['Capacidade / Detalhes'] || 'â€”'}</td>
+            <td>
+              <div style="display: flex; gap: 4px;">
+                ${callTarget ? `<a class="mac-tool-btn" style="padding: 3px 6px;" href="tel:${callTarget.replace(/\s+/g, '')}" title="Ligar">&#128222;</a>` : ''}
+                ${email ? `<a class="mac-tool-btn" style="padding: 3px 6px;" href="mailto:${email}" title="Email">&#9993;</a>` : ''}
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function exportToCSV() {
+      const isContacts = currentTab === 'contacts';
+      const data = isContacts ? lastFilteredContacts : lastFilteredResources;
+      if (!data.length) {
+        alert('NÃ£o hÃ¡ dados para exportar com os filtros atuais.');
+        return;
+      }
+
+      let csvContent = '\uFEFF';
+      if (isContacts) {
+        csvContent += "Gabinete;Ãrea;Cargo;Nome;E-mail;Telefone Direto;Ramal VOIP;TelemÃ³vel;Piso / Sala;Notas\r\n";
+        data.forEach(c => {
+          const aName = c['Ãrea / FunÃ§Ã£o'] || c['Area / Funcao'] || '';
+          csvContent += `"${c['Gabinete'] || ''}";"${aName}";"${c['Cargo'] || ''}";"${c['Nome'] || ''}";"${c['E-mail'] || ''}";"${c['Telefone Direto'] || ''}";"${c['Ramal Interno'] || ''}";"${c['TelemÃ³vel'] || ''}";"${c['Piso / Sala'] || ''}";"${c['Notas'] || ''}"\r\n`;
+        });
+      } else {
+        csvContent += "Gabinete;Tipo;DesignaÃ§Ã£o;ResponsÃ¡vel;E-mail;Contacto;MatrÃ­cula / Sala;Detalhes\r\n";
+        data.forEach(r => {
+          csvContent += `"${r['Gabinete'] || ''}";"${r['Tipo de Recurso'] || ''}";"${r['DesignaÃ§Ã£o / Recurso'] || ''}";"${r['ResponsÃ¡vel / Motorista'] || ''}";"${r['E-mail'] || ''}";"${r['TelemÃ³vel / Telefone'] || ''}";"${r['Identificador / MatrÃ­cula'] || ''}";"${r['Capacidade / Detalhes'] || ''}"\r\n`;
+        });
+      }
+
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.setAttribute('href', url);
+      link.setAttribute('download', `Diretorio_Gabinetes_${isContacts ? 'Contactos' : 'Recursos'}_${new Date().toISOString().slice(0,10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToast('&#128229; Ficheiro CSV gerado com sucesso!');
+    }
+
+    document.addEventListener('keydown', (e) => {
+      const searchInput = document.getElementById('searchInput');
+      if (e.key === '/' && document.activeElement !== searchInput) {
+        e.preventDefault();
+        searchInput.focus();
+        searchInput.select();
+      } else if (e.key === 'Escape') {
+        if (searchInput.value) {
+          searchInput.value = '';
+          filterData();
+        }
+        searchInput.blur();
+      } else if (document.activeElement !== searchInput) {
+        if (e.key === '1') setCabinet('ALL');
+        else if (e.key === '2') setCabinet('SEAO');
+        else if (e.key === '3') setCabinet('SEAF');
+        else if (e.key === '4') setCabinet('SEAP');
+      }
+    });
+
+    filterData();
+  </script>
+</body>
+</html>
